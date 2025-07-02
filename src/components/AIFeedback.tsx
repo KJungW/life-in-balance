@@ -61,7 +61,7 @@ const AIFeedback = ({ diaryData, onBack, onWriteNew }: AIFeedbackProps) => {
         <Button 
           variant="ghost" 
           onClick={onBack}
-          className="text-gray-300 hover:text-gray-100 hover:bg-gray-700"
+          className="text-slate-300 hover:text-slate-100 hover:bg-slate-700"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           홈으로 돌아가기
@@ -70,51 +70,51 @@ const AIFeedback = ({ diaryData, onBack, onWriteNew }: AIFeedbackProps) => {
 
       <div className="space-y-6">
         {/* 위로 메시지 */}
-        <Card className="border-red-700 bg-gradient-to-br from-red-900/30 to-pink-900/30 shadow-xl">
+        <Card className="border-pink-600 bg-gradient-to-br from-rose-900/40 to-pink-900/40 backdrop-blur-sm shadow-xl">
           <CardHeader>
             <div className="flex items-center gap-3">
-              <div className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-red-800 to-pink-800 rounded-full">
-                <Heart className="w-5 h-5 text-red-200" />
+              <div className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-rose-600 to-pink-600 rounded-full">
+                <Heart className="w-5 h-5 text-rose-200" />
               </div>
-              <CardTitle className="text-red-200 text-xl">{getComfortTitle()}</CardTitle>
+              <CardTitle className="text-rose-200 text-xl">{getComfortTitle()}</CardTitle>
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-200 leading-relaxed text-lg">
+            <p className="text-slate-200 leading-relaxed text-lg">
               {getComfortMessage()}
             </p>
           </CardContent>
         </Card>
 
         {/* 분석 피드백 */}
-        <Card className="border-blue-700 bg-gradient-to-br from-blue-900/30 to-indigo-900/30 shadow-xl">
+        <Card className="border-indigo-600 bg-gradient-to-br from-indigo-900/40 to-blue-900/40 backdrop-blur-sm shadow-xl">
           <CardHeader>
             <div className="flex items-center gap-3">
-              <div className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-blue-800 to-indigo-800 rounded-full">
-                <Lightbulb className="w-5 h-5 text-blue-200" />
+              <div className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-indigo-600 to-blue-600 rounded-full">
+                <Lightbulb className="w-5 h-5 text-indigo-200" />
               </div>
-              <CardTitle className="text-blue-200 text-xl">실패 분석</CardTitle>
+              <CardTitle className="text-indigo-200 text-xl">실패 분석</CardTitle>
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-200 leading-relaxed text-lg">
+            <p className="text-slate-200 leading-relaxed text-lg">
               {getAnalysis()}
             </p>
           </CardContent>
         </Card>
 
         {/* 발전 방향 제안 */}
-        <Card className="border-green-700 bg-gradient-to-br from-green-900/30 to-emerald-900/30 shadow-xl">
+        <Card className="border-emerald-600 bg-gradient-to-br from-emerald-900/40 to-teal-900/40 backdrop-blur-sm shadow-xl">
           <CardHeader>
             <div className="flex items-center gap-3">
-              <div className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-green-800 to-emerald-800 rounded-full">
-                <Target className="w-5 h-5 text-green-200" />
+              <div className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-full">
+                <Target className="w-5 h-5 text-emerald-200" />
               </div>
-              <CardTitle className="text-green-200 text-xl">발전 방향</CardTitle>
+              <CardTitle className="text-emerald-200 text-xl">발전 방향</CardTitle>
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-200 leading-relaxed text-lg">
+            <p className="text-slate-200 leading-relaxed text-lg">
               {getSuggestion()}
             </p>
           </CardContent>
@@ -124,7 +124,7 @@ const AIFeedback = ({ diaryData, onBack, onWriteNew }: AIFeedbackProps) => {
         <div className="flex gap-4">
           <Button 
             onClick={onWriteNew}
-            className="flex-1 h-12 text-lg bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 shadow-lg text-white"
+            className="flex-1 h-12 text-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 shadow-lg text-white"
           >
             <Edit className="w-5 h-5 mr-2" />
             새 일기 작성하기

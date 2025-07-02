@@ -72,13 +72,13 @@ const Index = () => {
           <div className="space-y-8">
             {/* Hero Section */}
             <div className="text-center space-y-4">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-gray-700 to-gray-800 rounded-full mb-4">
-                <BookOpen className="w-8 h-8 text-gray-200" />
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-slate-600 to-slate-700 rounded-full mb-4">
+                <BookOpen className="w-8 h-8 text-slate-200" />
               </div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-200 to-gray-300 bg-clip-text text-transparent">
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
                 실패 일기장
               </h1>
-              <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              <p className="text-lg text-slate-300 max-w-2xl mx-auto">
                 실패는 성공의 어머니입니다. 당신의 실패 경험을 기록하고, 
                 AI의 따뜻한 피드백을 통해 더 나은 내일을 만들어보세요.
               </p>
@@ -86,15 +86,15 @@ const Index = () => {
 
             {/* Calendar Section */}
             <div className="max-w-2xl mx-auto">
-              <Card className="border-gray-600 bg-gradient-to-br from-gray-800 to-gray-900 shadow-xl">
+              <Card className="border-slate-600 bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm shadow-xl">
                 <CardHeader className="text-center">
                   <div className="flex items-center justify-center gap-3">
-                    <div className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-gray-600 to-gray-700 rounded-full">
-                      <CalendarDays className="w-5 h-5 text-gray-200" />
+                    <div className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full">
+                      <CalendarDays className="w-5 h-5 text-indigo-200" />
                     </div>
-                    <CardTitle className="text-gray-200">나의 실패 일기</CardTitle>
+                    <CardTitle className="text-slate-200">나의 실패 일기</CardTitle>
                   </div>
-                  <CardDescription className="text-gray-400">
+                  <CardDescription className="text-slate-400">
                     날짜를 선택하여 작성한 실패 일기를 확인하세요
                   </CardDescription>
                 </CardHeader>
@@ -103,12 +103,12 @@ const Index = () => {
                     mode="single"
                     selected={selectedDate}
                     onSelect={handleDateSelect}
-                    className="rounded-md border-0 text-gray-200"
+                    className="rounded-md border-0 text-slate-200"
                     modifiers={{
                       hasDiary: sampleDiaries.map(diary => diary.date)
                     }}
                     modifiersStyles={{
-                      hasDiary: { backgroundColor: '#4f46e5', color: 'white', fontWeight: 'bold' }
+                      hasDiary: { backgroundColor: '#8b5cf6', color: 'white', fontWeight: 'bold' }
                     }}
                   />
                 </CardContent>
@@ -118,40 +118,40 @@ const Index = () => {
             {/* Action Cards */}
             <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               <Card 
-                className="group hover:shadow-2xl transition-all duration-300 cursor-pointer border-gray-600 hover:border-gray-500 bg-gradient-to-br from-gray-800 to-gray-900"
+                className="group hover:shadow-2xl transition-all duration-300 cursor-pointer border-slate-600 hover:border-slate-500 bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm"
                 onClick={() => setCurrentView('write')}
               >
                 <CardHeader className="text-center pb-4">
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-red-900 to-pink-900 rounded-full mb-3 mx-auto group-hover:scale-110 transition-transform">
-                    <Heart className="w-6 h-6 text-red-300" />
+                  <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-rose-600 to-pink-600 rounded-full mb-3 mx-auto group-hover:scale-110 transition-transform">
+                    <Heart className="w-6 h-6 text-rose-200" />
                   </div>
-                  <CardTitle className="text-gray-200">오늘의 실패 일기 작성</CardTitle>
-                  <CardDescription className="text-gray-400">
+                  <CardTitle className="text-slate-200">오늘의 실패 일기 작성</CardTitle>
+                  <CardDescription className="text-slate-400">
                     오늘 겪은 실패를 기록하고 AI의 따뜻한 위로와 조언을 받아보세요
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Button className="w-full bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 text-white">
+                  <Button className="w-full bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white shadow-lg">
                     일기 작성하기
                   </Button>
                 </CardContent>
               </Card>
 
               <Card 
-                className="group hover:shadow-2xl transition-all duration-300 cursor-pointer border-gray-600 hover:border-gray-500 bg-gradient-to-br from-gray-800 to-gray-900"
+                className="group hover:shadow-2xl transition-all duration-300 cursor-pointer border-slate-600 hover:border-slate-500 bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm"
                 onClick={() => setCurrentView('view')}
               >
                 <CardHeader className="text-center pb-4">
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-blue-900 to-indigo-900 rounded-full mb-3 mx-auto group-hover:scale-110 transition-transform">
-                    <Users className="w-6 h-6 text-blue-300" />
+                  <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-indigo-600 to-blue-600 rounded-full mb-3 mx-auto group-hover:scale-110 transition-transform">
+                    <Users className="w-6 h-6 text-indigo-200" />
                   </div>
-                  <CardTitle className="text-gray-200">다른 사람의 실패 일기</CardTitle>
-                  <CardDescription className="text-gray-400">
+                  <CardTitle className="text-slate-200">다른 사람의 실패 일기</CardTitle>
+                  <CardDescription className="text-slate-400">
                     다른 사람들의 실패 경험을 읽으며 위로받고 공감하세요
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Button variant="outline" className="w-full border-gray-500 text-gray-200 hover:bg-gray-700 hover:text-white">
+                  <Button variant="outline" className="w-full border-slate-500 text-slate-200 hover:bg-slate-700 hover:text-white shadow-lg">
                     일기 둘러보기
                   </Button>
                 </CardContent>
@@ -163,7 +163,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-950 to-indigo-950">
       <div className="container mx-auto px-4 py-8">
         {renderContent()}
       </div>

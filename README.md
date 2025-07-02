@@ -1,73 +1,126 @@
-# Welcome to your Lovable project
+# 실패 일기장
 
-## Project info
+---
 
-**URL**: https://lovable.dev/projects/347a977d-8a2a-46bf-ad9e-e02ccebb2ce1
+## 실패 일기장 프로젝트 소개
 
-## How can I edit this code?
+- 자신이 도전했다 실패했던 이야기들을 일기로 작성해보고 되돌아볼 수 있도록 하는 서비스
 
-There are several ways of editing your application.
 
-**Use Lovable**
+## 사용자 정의
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/347a977d-8a2a-46bf-ad9e-e02ccebb2ce1) and start prompting.
+- 자신의 실패를 토대로 발전하고 싶은 사용자
+- 실패로부터 오는 부정적인 감정들을 컨트롤하고 싶은 사용자
 
-Changes made via Lovable will be committed automatically to this repo.
 
-**Use your preferred IDE**
+## 페르소나 정의
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 정도윤
+- **직업**: IT 개발자
+- **나이**: 28세
+- **상황**: 신입 입사 후 수많은 실수와 실패를 겪고 있음
+- **목표**: 자신의 실패를 통해 스스로를 되돌아보며 발전하고 싶음
+- **니즈**:
+    - 자신의 실패를 되돌아보며 문제를 파악하고 싶음
+    - 파악한 문제를 토대로 발전 방향을 정하고 싶음
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 윤대한
+- **직업**: 취준생
+- **나이**: 25세
+- **상황**: 여러 번의 취업 실패로 인해 의욕 저하와 무기력 상태
+- **목표**: 실패로 인한 부정적인 감정을 컨트롤하고 싶음
+- **니즈**:
+    - 실패에 대한 직접적인 위로를 받고 다시 도전할 힘을 얻고 싶음
 
-Follow these steps:
+### 류선진
+- **직업**: 영업직
+- **나이**: 35세
+- **상황**: 성과 부진으로 승진 실패, 조급한 마음
+- **목표**: 실패로 인한 부정적인 감정을 컨트롤하고 싶음
+- **니즈**:
+    - 다른 사람의 실패를 보며 자신만 그런 게 아님을 확인하고 다시 도전할 힘을 얻고 싶음
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 사용자 시나리오 작성
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### 1. 신입 IT개발자 정도윤의 발전을 위한 실패 일기 작성
 
-# Step 3: Install the necessary dependencies.
-npm i
+1. 오늘의 실패일기 작성 버튼 클릭
+2. 제공되는 항목에 따라 실패일기 작성
+3. 저장하기 버튼 클릭
+4. AI의 위로와 피드백이 하단에 추가됨
+5. 피드백을 통해 발전 방향 고민 및 결정
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+### 2. 취준생 윤대한의 감정 컨트롤을 위한 실패 일기 작성
 
-**Edit a file directly in GitHub**
+1. 오늘의 실패일기 작성 버튼 클릭
+2. 제공되는 항목에 따라 실패일기 작성
+3. 저장하기 버튼 클릭
+4. AI의 위로와 피드백 확인
+5. 글 작성과 AI 위로를 통해 감정 컨트롤
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### 3. 영업직 류선진의 감정 컨트롤을 위한 다른 사람의 실패 읽어보기
 
-**Use GitHub Codespaces**
+1. 다른 사람의 실패 일기 보기 클릭
+2. 랜덤 출력된 공개 실패일기 중 선택
+3. 다른 사람의 실패일기를 통해 자신만 그런 게 아님을 인지하고 감정 정리
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 사용자 스토리와 인수조건
 
-## What technologies are used for this project?
+### 1. 정도윤 - 실패 일기 작성
 
-This project is built with:
+- **사용자 스토리**
+    - <사용자>: 수많은 실수와 실패를 겪고 있는 신입 IT 개발자
+    - <목적>: 실패를 통해 자신을 되돌아보고 발전 방향 고민
+    - <기능>: 실패일기를 작성하고 AI 피드백을 받는다
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- **인수 조건**
+    - Given: 웹서비스 접속
+    - When: 실패일기 작성
+    - Then: 실패 사유 및 앞으로 방향에 대한 AI 피드백 확인
 
-## How can I deploy this project?
+### 2. 윤대한 - 실패 일기 작성
 
-Simply open [Lovable](https://lovable.dev/projects/347a977d-8a2a-46bf-ad9e-e02ccebb2ce1) and click on Share -> Publish.
+- **사용자 스토리**
+    - <사용자>: 많은 취업 실패로 무기력해진 취준생
+    - <목적>: 실패에 대한 부정적인 감정을 컨트롤
+    - <기능>: 실패일기를 작성하고 AI 위로 및 피드백 받기
 
-## Can I connect a custom domain to my Lovable project?
+- **인수 조건**
+    - Given: 웹서비스 접속
+    - When: 실패일기 작성
+    - Then: AI의 위로 및 피드백 제공
 
-Yes, you can!
+### 3. 류선진 - 실패 일기 열람
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+- **사용자 스토리**
+    - <사용자>: 성과 부진으로 승진 실패한 영업직
+    - <목적>: 부정적 감정을 컨트롤
+    - <기능>: 다른 사람의 실패일기를 보며 마음의 안정 얻기
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+- **인수 조건**
+    - Given: 웹서비스 접속
+    - When: 실패일기 열람
+    - Then: 다른 사람의 실패 경험 확인 및 위안
+
+## 핵심 가치 제안
+
+- 실패에 대한 올바른 발전 방향을 세울 수 있도록 도움 제공
+- 실패에 대한 감정 컨트롤 지원
+
+## 핵심 기능
+
+- **실패 일기 작성**
+    - 항목: 실패지수, 실패내용, 실패이유, 느낀 점, 앞으로 어떻게 할지
+
+- **AI의 위로와 피드백**
+    - AI가 실패 이유 및 계획 항목에 대해 위로 및 피드백 제공
+
+- **다른 사람의 실패 일기 열람**
+    - 랜덤으로 출력된 공개 실패일기 목록에서 선택 가능
+    - 클릭 시 타인의 실패 경험 열람
+
+## 구현 범위
+
+- **프로토타입 수준 구현**
+    - 기본적인 UI/UX 흐름 제공
+    - 실제 동작은 없고, 미리 정의된 응답만 출력

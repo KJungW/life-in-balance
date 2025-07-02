@@ -57,21 +57,21 @@ const WriteFailureDiary = ({ onBack }: WriteFailureDiaryProps) => {
         <Button 
           variant="ghost" 
           onClick={onBack}
-          className="text-gray-600 hover:text-gray-800"
+          className="text-gray-300 hover:text-gray-100 hover:bg-gray-700"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           돌아가기
         </Button>
       </div>
 
-      <Card className="border-purple-200 shadow-lg bg-gradient-to-br from-purple-50 to-indigo-50">
+      <Card className="border-gray-600 shadow-2xl bg-gradient-to-br from-gray-800 to-gray-900">
         <CardHeader className="text-center pb-6">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-full mb-4 mx-auto">
-            <Sparkles className="w-8 h-8 text-purple-600" />
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-gray-600 to-gray-700 rounded-full mb-4 mx-auto">
+            <Sparkles className="w-8 h-8 text-gray-200" />
           </div>
-          <CardTitle className="text-3xl text-purple-700 mb-2">오늘의 실패 일기</CardTitle>
-          <p className="text-gray-600 text-lg">솔직한 마음으로 오늘의 경험을 기록해보세요</p>
-          <div className="flex items-center justify-center gap-2 mt-4 text-sm text-purple-600">
+          <CardTitle className="text-3xl text-gray-200 mb-2">오늘의 실패 일기</CardTitle>
+          <p className="text-gray-400 text-lg">솔직한 마음으로 오늘의 경험을 기록해보세요</p>
+          <div className="flex items-center justify-center gap-2 mt-4 text-sm text-gray-300">
             <Calendar className="w-4 h-4" />
             <span>{new Date().toLocaleDateString('ko-KR')}</span>
           </div>
@@ -81,10 +81,10 @@ const WriteFailureDiary = ({ onBack }: WriteFailureDiaryProps) => {
             {/* 실패 지수 */}
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <div className="inline-flex items-center justify-center w-8 h-8 bg-gradient-to-br from-red-100 to-orange-100 rounded-full">
-                  <Heart className="w-4 h-4 text-red-600" />
+                <div className="inline-flex items-center justify-center w-8 h-8 bg-gradient-to-br from-red-800 to-orange-800 rounded-full">
+                  <Heart className="w-4 h-4 text-red-200" />
                 </div>
-                <Label htmlFor="failureLevel" className="text-gray-700 font-semibold text-lg">
+                <Label htmlFor="failureLevel" className="text-gray-200 font-semibold text-lg">
                   실패 지수 (1-10)
                 </Label>
               </div>
@@ -92,12 +92,12 @@ const WriteFailureDiary = ({ onBack }: WriteFailureDiaryProps) => {
                 value={diaryData.failureLevel} 
                 onValueChange={(value) => setDiaryData({...diaryData, failureLevel: value})}
               >
-                <SelectTrigger className="h-12 text-base border-purple-200 focus:border-purple-400">
+                <SelectTrigger className="h-12 text-base border-gray-600 focus:border-gray-400 bg-gray-800 text-gray-200">
                   <SelectValue placeholder="실패의 정도를 선택해주세요" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-gray-800 border-gray-600">
                   {[...Array(10)].map((_, i) => (
-                    <SelectItem key={i + 1} value={(i + 1).toString()}>
+                    <SelectItem key={i + 1} value={(i + 1).toString()} className="text-gray-200 focus:bg-gray-700">
                       {i + 1}점 {i + 1 <= 3 ? '(가벼운 실패)' : i + 1 <= 6 ? '(보통 실패)' : i + 1 <= 8 ? '(큰 실패)' : '(매우 큰 실패)'}
                     </SelectItem>
                   ))}
@@ -108,10 +108,10 @@ const WriteFailureDiary = ({ onBack }: WriteFailureDiaryProps) => {
             {/* 실패 내용 */}
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <div className="inline-flex items-center justify-center w-8 h-8 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full">
-                  <Sparkles className="w-4 h-4 text-blue-600" />
+                <div className="inline-flex items-center justify-center w-8 h-8 bg-gradient-to-br from-blue-800 to-indigo-800 rounded-full">
+                  <Sparkles className="w-4 h-4 text-blue-200" />
                 </div>
-                <Label htmlFor="failureContent" className="text-gray-700 font-semibold text-lg">
+                <Label htmlFor="failureContent" className="text-gray-200 font-semibold text-lg">
                   실패 내용
                 </Label>
               </div>
@@ -120,17 +120,17 @@ const WriteFailureDiary = ({ onBack }: WriteFailureDiaryProps) => {
                 placeholder="어떤 실패를 경험하셨나요? 구체적으로 적어주세요."
                 value={diaryData.failureContent}
                 onChange={(e) => setDiaryData({...diaryData, failureContent: e.target.value})}
-                className="min-h-[120px] resize-none text-base border-purple-200 focus:border-purple-400 p-4"
+                className="min-h-[120px] resize-none text-base border-gray-600 focus:border-gray-400 p-4 bg-gray-800 text-gray-200 placeholder:text-gray-500"
               />
             </div>
 
             {/* 실패 이유 */}
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <div className="inline-flex items-center justify-center w-8 h-8 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full">
-                  <Brain className="w-4 h-4 text-amber-600" />
+                <div className="inline-flex items-center justify-center w-8 h-8 bg-gradient-to-br from-amber-800 to-orange-800 rounded-full">
+                  <Brain className="w-4 h-4 text-amber-200" />
                 </div>
-                <Label htmlFor="failureReason" className="text-gray-700 font-semibold text-lg">
+                <Label htmlFor="failureReason" className="text-gray-200 font-semibold text-lg">
                   실패 이유
                 </Label>
               </div>
@@ -139,17 +139,17 @@ const WriteFailureDiary = ({ onBack }: WriteFailureDiaryProps) => {
                 placeholder="왜 이런 실패가 일어났다고 생각하시나요?"
                 value={diaryData.failureReason}
                 onChange={(e) => setDiaryData({...diaryData, failureReason: e.target.value})}
-                className="min-h-[120px] resize-none text-base border-purple-200 focus:border-purple-400 p-4"
+                className="min-h-[120px] resize-none text-base border-gray-600 focus:border-gray-400 p-4 bg-gray-800 text-gray-200 placeholder:text-gray-500"
               />
             </div>
 
             {/* 느낀 점 */}
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <div className="inline-flex items-center justify-center w-8 h-8 bg-gradient-to-br from-pink-100 to-rose-100 rounded-full">
-                  <Heart className="w-4 h-4 text-pink-600" />
+                <div className="inline-flex items-center justify-center w-8 h-8 bg-gradient-to-br from-pink-800 to-rose-800 rounded-full">
+                  <Heart className="w-4 h-4 text-pink-200" />
                 </div>
-                <Label htmlFor="feelings" className="text-gray-700 font-semibold text-lg">
+                <Label htmlFor="feelings" className="text-gray-200 font-semibold text-lg">
                   느낀 점
                 </Label>
               </div>
@@ -158,17 +158,17 @@ const WriteFailureDiary = ({ onBack }: WriteFailureDiaryProps) => {
                 placeholder="이 경험을 통해 무엇을 느끼셨나요?"
                 value={diaryData.feelings}
                 onChange={(e) => setDiaryData({...diaryData, feelings: e.target.value})}
-                className="min-h-[120px] resize-none text-base border-purple-200 focus:border-purple-400 p-4"
+                className="min-h-[120px] resize-none text-base border-gray-600 focus:border-gray-400 p-4 bg-gray-800 text-gray-200 placeholder:text-gray-500"
               />
             </div>
 
             {/* 앞으로의 계획 */}
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <div className="inline-flex items-center justify-center w-8 h-8 bg-gradient-to-br from-emerald-100 to-teal-100 rounded-full">
-                  <Target className="w-4 h-4 text-emerald-600" />
+                <div className="inline-flex items-center justify-center w-8 h-8 bg-gradient-to-br from-emerald-800 to-teal-800 rounded-full">
+                  <Target className="w-4 h-4 text-emerald-200" />
                 </div>
-                <Label htmlFor="futurePlan" className="text-gray-700 font-semibold text-lg">
+                <Label htmlFor="futurePlan" className="text-gray-200 font-semibold text-lg">
                   앞으로의 계획
                 </Label>
               </div>
@@ -177,13 +177,13 @@ const WriteFailureDiary = ({ onBack }: WriteFailureDiaryProps) => {
                 placeholder="앞으로 어떻게 하실 계획인가요?"
                 value={diaryData.futurePlan}
                 onChange={(e) => setDiaryData({...diaryData, futurePlan: e.target.value})}
-                className="min-h-[120px] resize-none text-base border-purple-200 focus:border-purple-400 p-4"
+                className="min-h-[120px] resize-none text-base border-gray-600 focus:border-gray-400 p-4 bg-gray-800 text-gray-200 placeholder:text-gray-500"
               />
             </div>
 
             <Button 
               type="submit" 
-              className="w-full h-14 text-lg bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 shadow-lg"
+              className="w-full h-14 text-lg bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 shadow-lg text-white"
               disabled={!isFormValid}
             >
               <Send className="w-5 h-5 mr-3" />

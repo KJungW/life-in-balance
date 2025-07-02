@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -80,57 +79,57 @@ const ViewOthersDiary = ({ onBack }: ViewOthersDiaryProps) => {
           <Button 
             variant="ghost" 
             onClick={() => setSelectedDiary(null)}
-            className="text-gray-600 hover:text-gray-800"
+            className="text-gray-300 hover:text-gray-100 hover:bg-gray-700"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             목록으로 돌아가기
           </Button>
         </div>
 
-        <Card className="border-blue-200">
-          <CardHeader className="border-b border-blue-100">
+        <Card className="border-gray-600 bg-gradient-to-br from-gray-800 to-gray-900 shadow-xl">
+          <CardHeader className="border-b border-gray-700">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <Badge 
                   variant="secondary" 
                   className={`${
-                    selectedDiary.failureLevel >= 8 ? 'bg-red-100 text-red-700' :
-                    selectedDiary.failureLevel >= 5 ? 'bg-orange-100 text-orange-700' :
-                    'bg-green-100 text-green-700'
+                    selectedDiary.failureLevel >= 8 ? 'bg-red-800 text-red-200' :
+                    selectedDiary.failureLevel >= 5 ? 'bg-orange-800 text-orange-200' :
+                    'bg-green-800 text-green-200'
                   }`}
                 >
                   실패지수 {selectedDiary.failureLevel}
                 </Badge>
-                <span className="text-sm text-gray-500 flex items-center gap-1">
+                <span className="text-sm text-gray-400 flex items-center gap-1">
                   <Calendar className="w-4 h-4" />
                   {selectedDiary.date}
                 </span>
               </div>
-              <span className="text-sm text-gray-600">by {selectedDiary.author}</span>
+              <span className="text-sm text-gray-400">by {selectedDiary.author}</span>
             </div>
-            <CardTitle className="text-xl text-blue-700 mt-3">
+            <CardTitle className="text-xl text-gray-200 mt-3">
               {selectedDiary.title}
             </CardTitle>
           </CardHeader>
-          <CardContent className="pt-6 space-y-6">
+          <CardContent className="pt-6 space-y-6 text-gray-300">
             <div>
-              <h3 className="font-semibold text-gray-800 mb-2">실패 내용</h3>
-              <p className="text-gray-700 leading-relaxed">{selectedDiary.content}</p>
+              <h3 className="font-semibold text-gray-200 mb-2">실패 내용</h3>
+              <p className="leading-relaxed">{selectedDiary.content}</p>
             </div>
             
             <div>
-              <h3 className="font-semibold text-gray-800 mb-2">실패 이유</h3>
-              <p className="text-gray-700 leading-relaxed">{selectedDiary.reason}</p>
+              <h3 className="font-semibold text-gray-200 mb-2">실패 이유</h3>
+              <p className="leading-relaxed">{selectedDiary.reason}</p>
             </div>
             
             <div>
-              <h3 className="font-semibold text-gray-800 mb-2">느낀 점</h3>
-              <p className="text-gray-700 leading-relaxed">{selectedDiary.feelings}</p>
+              <h3 className="font-semibold text-gray-200 mb-2">느낀 점</h3>
+              <p className="leading-relaxed">{selectedDiary.feelings}</p>
             </div>
             
             <div>
-              <h3 className="font-semibold text-gray-800 mb-2">앞으로의 계획</h3>
-              <p className="text-gray-700 leading-relaxed">{selectedDiary.plan}</p>
+              <h3 className="font-semibold text-gray-200 mb-2">앞으로의 계획</h3>
+              <p className="leading-relaxed">{selectedDiary.plan}</p>
             </div>
           </CardContent>
         </Card>
@@ -144,7 +143,7 @@ const ViewOthersDiary = ({ onBack }: ViewOthersDiaryProps) => {
         <Button 
           variant="ghost" 
           onClick={onBack}
-          className="text-gray-600 hover:text-gray-800"
+          className="text-gray-300 hover:text-gray-100 hover:bg-gray-700"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           돌아가기
@@ -152,7 +151,7 @@ const ViewOthersDiary = ({ onBack }: ViewOthersDiaryProps) => {
         <Button 
           variant="outline" 
           onClick={loadRandomDiaries}
-          className="text-blue-600 border-blue-300 hover:bg-blue-50"
+          className="text-gray-300 border-gray-500 hover:bg-gray-700 hover:text-gray-100"
         >
           <RefreshCw className="w-4 h-4 mr-2" />
           새로운 일기 보기
@@ -160,8 +159,8 @@ const ViewOthersDiary = ({ onBack }: ViewOthersDiaryProps) => {
       </div>
 
       <div className="text-center mb-6">
-        <h1 className="text-2xl font-bold text-blue-700 mb-2">다른 사람의 실패 일기</h1>
-        <p className="text-gray-600">다른 사람들의 경험을 통해 위로받고 공감해보세요</p>
+        <h1 className="text-2xl font-bold text-gray-200 mb-2">다른 사람의 실패 일기</h1>
+        <p className="text-gray-400">다른 사람들의 경험을 통해 위로받고 공감해보세요</p>
       </div>
 
       <div className="space-y-4">
@@ -169,7 +168,7 @@ const ViewOthersDiary = ({ onBack }: ViewOthersDiaryProps) => {
           currentDiaries.map((diary) => (
             <Card 
               key={diary.id}
-              className="cursor-pointer hover:shadow-lg transition-all duration-300 border-blue-200 hover:border-blue-300"
+              className="cursor-pointer hover:shadow-2xl transition-all duration-300 border-gray-600 hover:border-gray-500 bg-gradient-to-br from-gray-800 to-gray-900"
               onClick={() => setSelectedDiary(diary)}
             >
               <CardHeader>
@@ -178,29 +177,29 @@ const ViewOthersDiary = ({ onBack }: ViewOthersDiaryProps) => {
                     <Badge 
                       variant="secondary" 
                       className={`${
-                        diary.failureLevel >= 8 ? 'bg-red-100 text-red-700' :
-                        diary.failureLevel >= 5 ? 'bg-orange-100 text-orange-700' :
-                        'bg-green-100 text-green-700'
+                        diary.failureLevel >= 8 ? 'bg-red-800 text-red-200' :
+                        diary.failureLevel >= 5 ? 'bg-orange-800 text-orange-200' :
+                        'bg-green-800 text-green-200'
                       }`}
                     >
                       실패지수 {diary.failureLevel}
                     </Badge>
-                    <span className="text-sm text-gray-500 flex items-center gap-1">
+                    <span className="text-sm text-gray-400 flex items-center gap-1">
                       <Calendar className="w-4 h-4" />
                       {diary.date}
                     </span>
                   </div>
-                  <span className="text-sm text-gray-600">by {diary.author}</span>
+                  <span className="text-sm text-gray-400">by {diary.author}</span>
                 </div>
-                <CardTitle className="text-lg text-blue-700 hover:text-blue-800">
+                <CardTitle className="text-lg text-gray-200 hover:text-gray-100">
                   {diary.title}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 line-clamp-2 mb-3">
+                <p className="text-gray-400 line-clamp-2 mb-3">
                   {diary.content.length > 100 ? `${diary.content.substring(0, 100)}...` : diary.content}
                 </p>
-                <div className="flex items-center text-blue-600 text-sm font-medium">
+                <div className="flex items-center text-gray-300 text-sm font-medium">
                   <Eye className="w-4 h-4 mr-1" />
                   자세히 보기
                 </div>
@@ -209,8 +208,8 @@ const ViewOthersDiary = ({ onBack }: ViewOthersDiaryProps) => {
           ))
         ) : (
           <div className="text-center py-8">
-            <p className="text-gray-500 mb-4">표시할 일기가 없습니다.</p>
-            <Button onClick={loadRandomDiaries} variant="outline">
+            <p className="text-gray-400 mb-4">표시할 일기가 없습니다.</p>
+            <Button onClick={loadRandomDiaries} variant="outline" className="border-gray-500 text-gray-300 hover:bg-gray-700">
               <RefreshCw className="w-4 h-4 mr-2" />
               일기 불러오기
             </Button>

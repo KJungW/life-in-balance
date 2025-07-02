@@ -1,9 +1,12 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Edit, Heart, Lightbulb, Target } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { ArrowLeft, Calendar, Heart, Lightbulb, Target } from "lucide-react";
 
 interface DiaryData {
+  id: number;
+  date: Date;
   failureLevel: string;
   failureContent: string;
   failureReason: string;
@@ -11,16 +14,15 @@ interface DiaryData {
   futurePlan: string;
 }
 
-interface AIFeedbackProps {
-  diaryData: DiaryData;
+interface ViewDiaryByDateProps {
+  diary: DiaryData;
   onBack: () => void;
-  onWriteNew: () => void;
 }
 
-const AIFeedback = ({ diaryData, onBack, onWriteNew }: AIFeedbackProps) => {
-  // 미리 정의된 AI 응답 (프로토타입용)
+const ViewDiaryByDate = ({ diary, onBack }: ViewDiaryByDateProps) => {
+  // AI 피드백 생성 함수들
   const getComfortMessage = () => {
-    const level = parseInt(diaryData.failureLevel);
+    const level = parseInt(diary.failureLevel);
     if (level >= 8) {
       return "정말 힘든 시간을 보내셨을 것 같아요. 하지만 이런 큰 실패를 경험하신 것 자체가 용기 있는 도전을 하셨다는 증거입니다. 지금은 아프지만, 이 경험이 분명 더 강한 당신을 만들어줄 거예요.";
     } else if (level >= 5) {
@@ -31,7 +33,7 @@ const AIFeedback = ({ diaryData, onBack, onWriteNew }: AIFeedbackProps) => {
   };
 
   const getComfortTitle = () => {
-    const level = parseInt(diaryData.failureLevel);
+    const level = parseInt(diary.failureLevel);
     const titles = [
       "괜찮아요!", "힘내요!", "잘하고 있어요!", "괜찮습니다!", 
       "괜찮을 거예요!", "힘내세요!", "괜찮아!", "잘했어요!",
@@ -64,11 +66,60 @@ const AIFeedback = ({ diaryData, onBack, onWriteNew }: AIFeedbackProps) => {
           className="text-gray-300 hover:text-gray-100 hover:bg-gray-700"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
-          홈으로 돌아가기
+          돌아가기
         </Button>
       </div>
 
       <div className="space-y-6">
+        {/* 일기 정보 */}
+        <Card className="border-gray-600 bg-gradient-to-br from-gray-800 to-gray-900 shadow-xl">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Badge 
+                  variant="secondary" 
+                  className={`${
+                    parseInt(diary.failureLevel) >= 8 ? 'bg-red-800 text-red-200' :
+                    parseInt(diary.failureLevel) >= 5 ? 'bg-orange-800 text-orange-200' :
+                    'bg-green-800 text-green-200'
+                  }`}
+                >
+                  실패지수 {diary.failureLevel}
+                </Badge>
+                <span className="text-sm text-gray-400 flex items-center gap-1">
+                  <Calendar className="w-4 h-4" />
+                  {diary.date.toLocaleDateString('ko-KR')}
+                </span>
+              </div>
+            </div>
+            <CardTitle className="text-xl text-gray-200 mt-3">
+              나의 실패 일기
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4 text-gray-300">
+            <div>
+              <h3 className="font-semibold text-gray-200 mb-2">실패 내용</h3>
+              <p className="leading-relaxed">{diary.failureContent}</p>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold text-gray-200 mb-2">실패 이유</h3>
+              <p className="leading-relaxed">{diary.failureReason}</p>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold text-gray-200 mb-2">느낀 점</h3>
+              <p className="leading-relaxed">{diary.feelings}</p>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold text-gray-200 mb-2">앞으로의 계획</h3>
+              <p className="leading-relaxed">{diary.futurePlan}</p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* AI 피드백 */}
         {/* 위로 메시지 */}
         <Card className="border-red-700 bg-gradient-to-br from-red-900/30 to-pink-900/30 shadow-xl">
           <CardHeader>
@@ -119,20 +170,9 @@ const AIFeedback = ({ diaryData, onBack, onWriteNew }: AIFeedbackProps) => {
             </p>
           </CardContent>
         </Card>
-
-        {/* 액션 버튼 */}
-        <div className="flex gap-4">
-          <Button 
-            onClick={onWriteNew}
-            className="flex-1 h-12 text-lg bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 shadow-lg text-white"
-          >
-            <Edit className="w-5 h-5 mr-2" />
-            새 일기 작성하기
-          </Button>
-        </div>
       </div>
     </div>
   );
 };
 
-export default AIFeedback;
+export default ViewDiaryByDate;

@@ -30,6 +30,23 @@ const AIFeedback = ({ diaryData, onBack, onWriteNew }: AIFeedbackProps) => {
     }
   };
 
+  const getComfortTitle = () => {
+    const level = parseInt(diaryData.failureLevel);
+    const titles = [
+      "괜찮아요!", "힘내요!", "잘하고 있어요!", "괜찮습니다!", 
+      "괜찮을 거예요!", "힘내세요!", "괜찮아!", "잘했어요!",
+      "모든 게 다 괜찮아질 거예요!", "힘을 내요!"
+    ];
+    
+    if (level >= 8) {
+      return ["모든 게 다 괜찮아질 거예요!", "힘을 내요!", "괜찮을 거예요!"][Math.floor(Math.random() * 3)];
+    } else if (level >= 5) {
+      return ["괜찮아요!", "힘내요!", "잘하고 있어요!"][Math.floor(Math.random() * 3)];
+    } else {
+      return ["잘했어요!", "괜찮아!", "힘내세요!"][Math.floor(Math.random() * 3)];
+    }
+  };
+
   const getAnalysis = () => {
     return "당신이 적어주신 실패 이유를 보니, 스스로를 잘 객관화하고 계시는 것 같아요. 이런 자기 성찰 능력이야말로 성장의 첫걸음입니다. 실패의 원인을 파악했다는 것은 이미 절반은 해결한 셈이에요.";
   };
@@ -53,51 +70,51 @@ const AIFeedback = ({ diaryData, onBack, onWriteNew }: AIFeedbackProps) => {
 
       <div className="space-y-6">
         {/* 위로 메시지 */}
-        <Card className="border-rose-200 bg-gradient-to-br from-rose-50 to-pink-50">
+        <Card className="border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50 shadow-lg">
           <CardHeader>
             <div className="flex items-center gap-3">
-              <div className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-rose-100 to-pink-100 rounded-full">
-                <Heart className="w-5 h-5 text-rose-600" />
+              <div className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full">
+                <Heart className="w-5 h-5 text-purple-600" />
               </div>
-              <CardTitle className="text-rose-700">따뜻한 위로</CardTitle>
+              <CardTitle className="text-purple-700 text-xl">{getComfortTitle()}</CardTitle>
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-gray-700 leading-relaxed text-lg">
               {getComfortMessage()}
             </p>
           </CardContent>
         </Card>
 
         {/* 분석 피드백 */}
-        <Card className="border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50">
+        <Card className="border-indigo-200 bg-gradient-to-br from-indigo-50 to-blue-50 shadow-lg">
           <CardHeader>
             <div className="flex items-center gap-3">
-              <div className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full">
-                <Lightbulb className="w-5 h-5 text-blue-600" />
+              <div className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-indigo-100 to-blue-100 rounded-full">
+                <Lightbulb className="w-5 h-5 text-indigo-600" />
               </div>
-              <CardTitle className="text-blue-700">실패 분석</CardTitle>
+              <CardTitle className="text-indigo-700 text-xl">실패 분석</CardTitle>
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-gray-700 leading-relaxed text-lg">
               {getAnalysis()}
             </p>
           </CardContent>
         </Card>
 
         {/* 발전 방향 제안 */}
-        <Card className="border-green-200 bg-gradient-to-br from-green-50 to-emerald-50">
+        <Card className="border-emerald-200 bg-gradient-to-br from-emerald-50 to-teal-50 shadow-lg">
           <CardHeader>
             <div className="flex items-center gap-3">
-              <div className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full">
-                <Target className="w-5 h-5 text-green-600" />
+              <div className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-emerald-100 to-teal-100 rounded-full">
+                <Target className="w-5 h-5 text-emerald-600" />
               </div>
-              <CardTitle className="text-green-700">발전 방향</CardTitle>
+              <CardTitle className="text-emerald-700 text-xl">발전 방향</CardTitle>
             </div>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-gray-700 leading-relaxed text-lg">
               {getSuggestion()}
             </p>
           </CardContent>
@@ -107,9 +124,9 @@ const AIFeedback = ({ diaryData, onBack, onWriteNew }: AIFeedbackProps) => {
         <div className="flex gap-4">
           <Button 
             onClick={onWriteNew}
-            className="flex-1 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600"
+            className="flex-1 h-12 text-lg bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 shadow-lg"
           >
-            <Edit className="w-4 h-4 mr-2" />
+            <Edit className="w-5 h-5 mr-2" />
             새 일기 작성하기
           </Button>
         </div>

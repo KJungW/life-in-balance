@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -75,25 +74,13 @@ const ViewDiaryByDate = ({ diary, onBack }: ViewDiaryByDateProps) => {
         <Card className="border-slate-600 bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm shadow-xl">
           <CardHeader>
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Badge 
-                  variant="secondary" 
-                  className={`${
-                    parseInt(diary.failureLevel) >= 8 ? 'bg-rose-800 text-rose-200' :
-                    parseInt(diary.failureLevel) >= 5 ? 'bg-amber-800 text-amber-200' :
-                    'bg-emerald-800 text-emerald-200'
-                  }`}
-                >
-                  실패지수 {diary.failureLevel}
-                </Badge>
-                <span className="text-sm text-slate-400 flex items-center gap-1">
-                  <Calendar className="w-4 h-4" />
-                  {diary.date.toLocaleDateString('ko-KR')}
-                </span>
-              </div>
+              <span className="text-sm text-slate-400 flex items-center gap-1">
+                <Calendar className="w-4 h-4" />
+                {diary.date.toLocaleDateString('ko-KR')}
+              </span>
             </div>
             <CardTitle className="text-xl text-slate-200 mt-3">
-              나의 실패 일기
+              {diary.failureLevel}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 text-slate-300">
@@ -118,58 +105,23 @@ const ViewDiaryByDate = ({ diary, onBack }: ViewDiaryByDateProps) => {
             </div>
           </CardContent>
         </Card>
-
-        {/* AI 피드백 */}
-        {/* 위로 메시지 */}
-        <Card className="border-pink-600 bg-gradient-to-br from-rose-900/40 to-pink-900/40 backdrop-blur-sm shadow-xl">
-          <CardHeader>
-            <div className="flex items-center gap-3">
-              <div className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-rose-600 to-pink-600 rounded-full">
-                <Heart className="w-5 h-5 text-rose-200" />
-              </div>
-              <CardTitle className="text-rose-200 text-xl">{getComfortTitle()}</CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <p className="text-slate-200 leading-relaxed text-lg">
-              {getComfortMessage()}
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* 분석 피드백 */}
-        <Card className="border-indigo-600 bg-gradient-to-br from-indigo-900/40 to-blue-900/40 backdrop-blur-sm shadow-xl">
-          <CardHeader>
-            <div className="flex items-center gap-3">
-              <div className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-indigo-600 to-blue-600 rounded-full">
-                <Lightbulb className="w-5 h-5 text-indigo-200" />
-              </div>
-              <CardTitle className="text-indigo-200 text-xl">실패 분석</CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <p className="text-slate-200 leading-relaxed text-lg">
-              {getAnalysis()}
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* 발전 방향 제안 */}
-        <Card className="border-emerald-600 bg-gradient-to-br from-emerald-900/40 to-teal-900/40 backdrop-blur-sm shadow-xl">
-          <CardHeader>
-            <div className="flex items-center gap-3">
-              <div className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-full">
-                <Target className="w-5 h-5 text-emerald-200" />
-              </div>
-              <CardTitle className="text-emerald-200 text-xl">발전 방향</CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <p className="text-slate-200 leading-relaxed text-lg">
-              {getSuggestion()}
-            </p>
-          </CardContent>
-        </Card>
+      </div>
+      {/* 하단 응원글 섹션 */}
+      <div className="mt-10">
+        <div className="bg-gradient-to-br from-purple-900/60 to-indigo-900/60 rounded-2xl p-6 shadow-xl border border-purple-700">
+          <h3 className="text-lg font-bold text-purple-200 mb-4">다른 사람이 남긴 응원글</h3>
+          <ul className="space-y-3">
+            <li className="bg-slate-800/80 rounded-lg px-4 py-3 text-slate-200">
+              "실패는 누구에게나 찾아와요. 오늘의 용기가 내일의 성장으로 이어질 거예요! 힘내세요!" <span className="text-xs text-slate-400 ml-2">- 익명의 응원자</span>
+            </li>
+            <li className="bg-slate-800/80 rounded-lg px-4 py-3 text-slate-200">
+              "이런 경험을 공유해줘서 고마워요. 당신의 이야기가 큰 힘이 됩니다." <span className="text-xs text-slate-400 ml-2">- 공감하는 친구</span>
+            </li>
+            <li className="bg-slate-800/80 rounded-lg px-4 py-3 text-slate-200">
+              "실패를 기록하는 것 자체가 이미 멋진 도전이에요. 앞으로도 응원할게요!" <span className="text-xs text-slate-400 ml-2">- 응원단</span>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );

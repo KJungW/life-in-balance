@@ -60,6 +60,9 @@ const ViewOthersDiary = ({ onBack }: ViewOthersDiaryProps) => {
 
   const [currentDiaries, setCurrentDiaries] = useState<OtherDiary[]>([]);
   const [selectedDiary, setSelectedDiary] = useState<OtherDiary | null>(null);
+  const [comments, setComments] = useState<{ nickname: string; content: string }[]>([]);
+  const [commentInput, setCommentInput] = useState("");
+  const [nicknameInput, setNicknameInput] = useState("");
 
   const loadRandomDiaries = () => {
     const shuffled = [...sampleDiaries].sort(() => 0.5 - Math.random());
@@ -73,6 +76,16 @@ const ViewOthersDiary = ({ onBack }: ViewOthersDiaryProps) => {
   });
 
   if (selectedDiary) {
+    const handleAddComment = () => {
+      if (commentInput.trim() && nicknameInput.trim()) {
+        setComments([
+          ...comments,
+          { nickname: nicknameInput.trim(), content: commentInput.trim() },
+        ]);
+        setCommentInput("");
+      }
+    };
+
     return (
       <div className="max-w-2xl mx-auto">
         <div className="flex items-center gap-4 mb-6">
@@ -90,16 +103,6 @@ const ViewOthersDiary = ({ onBack }: ViewOthersDiaryProps) => {
           <CardHeader className="border-b border-gray-700">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Badge 
-                  variant="secondary" 
-                  className={`${
-                    selectedDiary.failureLevel >= 8 ? 'bg-red-800 text-red-200' :
-                    selectedDiary.failureLevel >= 5 ? 'bg-orange-800 text-orange-200' :
-                    'bg-green-800 text-green-200'
-                  }`}
-                >
-                  실패지수 {selectedDiary.failureLevel}
-                </Badge>
                 <span className="text-sm text-gray-400 flex items-center gap-1">
                   <Calendar className="w-4 h-4" />
                   {selectedDiary.date}
@@ -133,6 +136,44 @@ const ViewOthersDiary = ({ onBack }: ViewOthersDiaryProps) => {
             </div>
           </CardContent>
         </Card>
+
+        {/* 응원글(댓글) 영역 */}
+        <div className="mt-8 bg-gray-800 rounded-lg p-6 shadow-inner">
+          <h3 className="text-lg font-bold text-gray-200 mb-4">응원글 남기기</h3>
+          <div className="flex flex-col md:flex-row gap-2 mb-4">
+            <input
+              className="flex-1 px-3 py-2 rounded bg-gray-900 text-gray-100 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="닉네임"
+              value={nicknameInput}
+              maxLength={12}
+              onChange={e => setNicknameInput(e.target.value)}
+            />
+            <input
+              className="flex-[2] px-3 py-2 rounded bg-gray-900 text-gray-100 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="응원글을 입력하세요"
+              value={commentInput}
+              maxLength={100}
+              onChange={e => setCommentInput(e.target.value)}
+              onKeyDown={e => { if (e.key === 'Enter') handleAddComment(); }}
+            />
+            <Button onClick={handleAddComment} className="bg-blue-700 hover:bg-blue-800 text-white">등록</Button>
+          </div>
+          <div>
+            {comments.length === 0 ? (
+              <p className="text-gray-400 text-sm">아직 응원글이 없습니다. 가장 먼저 응원해보세요!</p>
+            ) : (
+              <ul className="space-y-3">
+                {comments.map((c, idx) => (
+                  <li key={idx} className="bg-gray-900 rounded px-4 py-2 text-gray-100 flex items-center gap-2">
+                    <span className="font-semibold text-blue-300">{c.nickname}</span>
+                    <span className="text-gray-400">|</span>
+                    <span>{c.content}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
       </div>
     );
   }
@@ -149,9 +190,8 @@ const ViewOthersDiary = ({ onBack }: ViewOthersDiaryProps) => {
           돌아가기
         </Button>
         <Button 
-          variant="outline" 
           onClick={loadRandomDiaries}
-          className="text-gray-300 border-gray-500 hover:bg-gray-700 hover:text-gray-100"
+          className="bg-gradient-to-r from-indigo-500 to-blue-500 hover:from-indigo-600 hover:to-blue-600 text-white shadow-lg"
         >
           <RefreshCw className="w-4 h-4 mr-2" />
           새로운 일기 보기
@@ -174,16 +214,6 @@ const ViewOthersDiary = ({ onBack }: ViewOthersDiaryProps) => {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <Badge 
-                      variant="secondary" 
-                      className={`${
-                        diary.failureLevel >= 8 ? 'bg-red-800 text-red-200' :
-                        diary.failureLevel >= 5 ? 'bg-orange-800 text-orange-200' :
-                        'bg-green-800 text-green-200'
-                      }`}
-                    >
-                      실패지수 {diary.failureLevel}
-                    </Badge>
                     <span className="text-sm text-gray-400 flex items-center gap-1">
                       <Calendar className="w-4 h-4" />
                       {diary.date}

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -26,11 +25,11 @@ const Index = () => {
     {
       id: 2,
       date: new Date(), // 오늘
-      failureLevel: '5',
-      failureContent: '팀 회의에서 의견을 제대로 전달하지 못했습니다.',
-      failureReason: '긴장해서 말이 잘 나오지 않았어요.',
-      feelings: '아쉬웠지만 다음 기회에는 더 잘할 수 있을 것 같습니다.',
-      futurePlan: '미리 의견을 정리해서 회의에 참석하겠습니다.'
+      failureLevel: '너무 아쉬운 의사표현 실패',
+      failureContent: '오늘 중요한 발표에서 준비한 내용을 제대로 전달하지 못했다.',
+      failureReason: '실패한 이유는 사전에 준비가 약간 부족했기 때문입니다!',
+      feelings: '이번 경험을 통해 사전준비의 중요성을 배울 수 있었습니다!',
+      futurePlan: '사전 준비를 하고 더블체크를 통해 빠드린것이 없는지 한번더 확인해볼 예정입니다'
     }
   ];
 
@@ -151,7 +150,9 @@ const Index = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Button variant="outline" className="w-full border-slate-500 text-slate-200 hover:bg-slate-700 hover:text-white shadow-lg">
+                  <Button 
+                    className="w-full bg-gradient-to-r from-indigo-500 to-blue-500 hover:from-indigo-600 hover:to-blue-600 text-white shadow-lg"
+                  >
                     일기 둘러보기
                   </Button>
                 </CardContent>

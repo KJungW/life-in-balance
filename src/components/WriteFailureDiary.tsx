@@ -23,18 +23,18 @@ interface DiaryData {
 const QUESTIONS = [
   {
     key: "failureReason",
-    question: "Q. 혹시 이번에 실패하게 된 이유가 무엇이라고 생각하시나요?",
-    placeholder: "실패의 원인을 스스로 생각해보며 적어보세요."
+    question: "Q. 누구나 실수할 수 있어요. 이번에 힘들었던 이유나 상황을 편하게 이야기해주실 수 있나요?",
+    placeholder: "실패의 원인을 스스로 생각해보며 적어보세요. 당신의 이야기를 충분히 공감하며 듣고 있어요."
   },
   {
     key: "feelings",
-    question: "Q. 이번 경험을 통해 느낀 점이나 감정이 있다면 편하게 말씀해 주세요.",
-    placeholder: "이 경험이 당신에게 어떤 감정을 남겼나요? 솔직하게 적어보세요."
+    question: "Q. 이런 경험은 누구에게나 힘들 수 있죠. 그 과정에서 느꼈던 감정이나 생각을 자유롭게 나눠주세요. 저는 당신의 마음을 이해하고 싶어요.",
+    placeholder: "이 경험이 당신에게 어떤 감정을 남겼나요? 솔직하게 적어주셔도 괜찮아요."
   },
   {
     key: "futurePlan",
-    question: "Q. 앞으로 비슷한 상황이 온다면 어떻게 해보고 싶으신가요?",
-    placeholder: "앞으로 비슷한 상황에서 어떻게 행동할지, 작은 계획이라도 적어보세요."
+    question: "Q. 이번 경험이 분명히 성장의 밑거름이 될 거예요. 앞으로 비슷한 상황이 온다면, 어떤 점을 다르게 해보고 싶으신가요? 작은 변화도 괜찮아요.",
+    placeholder: "앞으로 비슷한 상황에서 어떻게 행동할지, 작은 계획이라도 적어보세요. 당신의 용기를 응원합니다."
   }
 ];
 
@@ -50,6 +50,7 @@ const WriteFailureDiary = ({ onBack }: WriteFailureDiaryProps) => {
   const [showAIDialogue, setShowAIDialogue] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
   const [step, setStep] = useState(0);
+  const [aiType, setAIType] = useState<'none' | 'empathy' | 'problem'>('none');
 
   // AI 답변 예시 생성 함수 (실패 키워드/내용에 따라 간단히 분기)
   const getAIDialogue = () => {
@@ -161,69 +162,186 @@ const WriteFailureDiary = ({ onBack }: WriteFailureDiaryProps) => {
                 </div>
 
                 {!showAIDialogue && (
-                  <Button 
-                    type="submit" 
-                    className="w-full h-14 text-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 shadow-lg text-white"
-                    disabled={!diaryData.failureLevel.trim() || !diaryData.failureContent.trim()}
-                  >
-                    <Send className="w-5 h-5 mr-3" />
-                    AI와 대화 시작
-                  </Button>
+                  <div className="flex flex-col md:flex-row gap-4">
+                    <Button 
+                      type="submit" 
+                      className="flex-1 h-14 text-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 shadow-lg text-white"
+                      disabled={!diaryData.failureLevel.trim() || !diaryData.failureContent.trim()}
+                      onClick={e => { e.preventDefault(); setShowAIDialogue(true); setStep(0); setAIType('empathy'); }}
+                    >
+                      <Send className="w-5 h-5 mr-3" />
+                      공감형 AI와 대화 시작
+                    </Button>
+                    <Button 
+                      type="submit" 
+                      className="flex-1 h-14 text-lg bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 shadow-lg text-white"
+                      disabled={!diaryData.failureLevel.trim() || !diaryData.failureContent.trim()}
+                      onClick={e => { e.preventDefault(); setShowAIDialogue(true); setStep(0); setAIType('problem'); }}
+                    >
+                      <Send className="w-5 h-5 mr-3" />
+                      문제해결형 AI와 대화 시작
+                    </Button>
+                  </div>
                 )}
               </form>
 
               {/* AI 대화 영역 */}
               {showAIDialogue && (
                 <div className="mt-10 space-y-8">
-                  {/* 이전까지의 대화 내용 모두 출력 */}
-                  {QUESTIONS.slice(0, step).map((q, idx) => (
-                    <div key={q.key} className="flex flex-col gap-4 mb-2">
-                      <div className="self-start max-w-[80%] bg-blue-900/80 text-white rounded-xl px-5 py-3 shadow">
-                        <span className="font-semibold">{q.question}</span>
+                  {aiType === 'empathy' ? (
+                    // 하드코딩된 공감형 대화
+                    <div className="space-y-6">
+                      <div className="flex flex-col gap-4 mb-2">
+                        <div className="self-start max-w-[80%] bg-blue-900/80 text-white rounded-xl px-5 py-3 shadow">
+                          그때 발표 자리에서 어떤 일이 있었나요?
+                        </div>
+                        <div className="self-end max-w-[80%] bg-slate-800/90 text-slate-200 rounded-xl px-5 py-3 shadow">
+                          질문을 받았는데 너무 긴장해서 아무 말도 못 했어요. 머릿속이 하얘졌어요.
+                        </div>
                       </div>
-                      <div className="self-end max-w-[80%] bg-slate-800/90 text-slate-200 rounded-xl px-5 py-3 shadow">
-                        {diaryData[q.key as keyof DiaryData]}
+                      <div className="flex flex-col gap-4 mb-2">
+                        <div className="self-start max-w-[80%] bg-blue-900/80 text-white rounded-xl px-5 py-3 shadow">
+                          그 순간, 마음이 많이 복잡했을 것 같아요.<br/>제일 먼저 들었던 감정은 어떤 거였나요?
+                        </div>
+                        <div className="self-end max-w-[80%] bg-slate-800/90 text-slate-200 rounded-xl px-5 py-3 shadow">
+                          창피함이요. 실망스럽고…
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                  {/* 현재 질문과 답변 입력란 */}
-                  {step < QUESTIONS.length && (
-                    <div className="flex flex-col gap-2 mb-2 items-end">
-                      <div className="self-start max-w-[80%] bg-blue-900/80 text-white rounded-xl px-5 py-3 shadow">
-                        <span className="font-semibold">{QUESTIONS[step].question}</span>
+                      <div className="flex flex-col gap-4 mb-2">
+                        <div className="self-start max-w-[80%] bg-blue-900/80 text-white rounded-xl px-5 py-3 shadow">
+                          그 마음, 정말 이해돼요.<br/>그때의 나에게 짧게 한마디 해준다면 뭐라고 말하고 싶으세요?
+                        </div>
+                        <div className="self-end max-w-[80%] bg-slate-800/90 text-slate-200 rounded-xl px-5 py-3 shadow">
+                          "괜찮아. 그 정도면 잘했어."
+                        </div>
                       </div>
-                      <form className="self-end max-w-[80%] w-full flex items-end gap-2 mt-2" onSubmit={e => {
-                        e.preventDefault();
-                        if (diaryData[QUESTIONS[step].key as keyof DiaryData].trim()) setStep(step + 1);
-                      }}>
-                        <Textarea
-                          id={QUESTIONS[step].key}
-                          placeholder={QUESTIONS[step].placeholder}
-                          value={diaryData[QUESTIONS[step].key as keyof DiaryData]}
-                          onChange={e => setDiaryData({ ...diaryData, [QUESTIONS[step].key]: e.target.value })}
-                          className="min-h-[80px] resize-none text-base border-slate-600 focus:border-purple-400 p-4 bg-slate-800/80 text-slate-200 placeholder:text-slate-500 flex-1"
-                        />
+                      <div className="flex flex-col gap-4 mb-2">
+                        <div className="self-start max-w-[80%] bg-blue-900/80 text-white rounded-xl px-5 py-3 shadow">
+                          그 말, 지금의 나에게도 꼭 필요한 말일지 몰라요.<br/>지금 돌아보면, 그 일은 당신에게 어떤 의미였던 것 같나요?
+                        </div>
+                        <div className="self-end max-w-[80%] bg-slate-800/90 text-slate-200 rounded-xl px-5 py-3 shadow">
+                          실패라기보다는… 멈춰서 배운 시간이었던 것 같아요.
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-4 mb-2">
+                        <div className="self-start max-w-[80%] bg-blue-900/80 text-white rounded-xl px-5 py-3 shadow">
+                          그렇게 바라봐 주셔서 정말 멋져요.<br/>오늘 이 대화가 당신 마음에 조금이나마 따뜻함으로 남기를 바라요. 🌿
+                        </div>
+                      </div>
+                      <div className="flex justify-end mt-8">
                         <Button
-                          type="submit"
-                          size="icon"
-                          className="h-12 w-12 bg-indigo-700 text-white hover:bg-indigo-800 ml-2"
-                          disabled={!diaryData[QUESTIONS[step].key as keyof DiaryData].trim()}
+                          variant="outline"
+                          className="border-slate-500 text-slate-300 bg-slate-800 hover:bg-slate-700"
+                          onClick={() => { setShowAIDialogue(false); setShowSummary(true); setAIType('none'); }}
                         >
-                          <Send className="w-5 h-5" />
+                          대화 종료
                         </Button>
-                      </form>
+                      </div>
                     </div>
+                  ) : aiType === 'problem' ? (
+                    // 하드코딩된 문제해결형 대화
+                    <div className="space-y-6">
+                      <div className="flex flex-col gap-4 mb-2">
+                        <div className="self-start max-w-[80%] bg-blue-900/80 text-white rounded-xl px-5 py-3 shadow">
+                          발표에서 무슨 일이 있었나요?
+                        </div>
+                        <div className="self-end max-w-[80%] bg-slate-800/90 text-slate-200 rounded-xl px-5 py-3 shadow">
+                          질문을 받았는데 머릿속이 하얘져서 아무 말도 못했어요.
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-4 mb-2">
+                        <div className="self-start max-w-[80%] bg-blue-900/80 text-white rounded-xl px-5 py-3 shadow">
+                          정말 당황스러우셨겠어요. 준비를 열심히 했던 만큼 더 아쉬움이 컸을 것 같아요.<br/>혹시 비슷한 상황이 처음이셨을까요?
+                        </div>
+                        <div className="self-end max-w-[80%] bg-slate-800/90 text-slate-200 rounded-xl px-5 py-3 shadow">
+                          네, 공식적인 자리에서 그런 경험은 처음이었어요.
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-4 mb-2">
+                        <div className="self-start max-w-[80%] bg-blue-900/80 text-white rounded-xl px-5 py-3 shadow">
+                          처음이라면 누구든지 겪을 수 있는 일이에요.<br/>혹시 다음엔 비슷한 상황을 더 잘 넘기기 위해 시도해보고 싶은 방법이 있을까요?
+                        </div>
+                        <div className="self-end max-w-[80%] bg-slate-800/90 text-slate-200 rounded-xl px-5 py-3 shadow">
+                          음… 갑자기 질문받는 연습을 좀 더 해볼까 싶긴 해요.
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-4 mb-2">
+                        <div className="self-start max-w-[80%] bg-blue-900/80 text-white rounded-xl px-5 py-3 shadow">
+                          좋은 생각이에요!<br/>제가 제안드려도 괜찮다면, 이런 방법들이 있을 것 같아요:<br/><br/>모의 발표 중 돌발 질문 연습하기<br/>중간에 멈추고 다시 말하는 습관 기르기<br/>"잘 모르겠습니다"를 침착하게 말하는 문장 미리 준비해두기<br/><br/>혹시 이 중에서 바로 시도해볼 수 있는 게 있을까요?
+                        </div>
+                        <div className="self-end max-w-[80%] bg-slate-800/90 text-slate-200 rounded-xl px-5 py-3 shadow">
+                          세 번째 방법이 괜찮을 것 같아요. 당황했을 때 말문을 여는 연습부터 해보고 싶어요.
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-4 mb-2">
+                        <div className="self-start max-w-[80%] bg-blue-900/80 text-white rounded-xl px-5 py-3 shadow">
+                          그 선택 정말 좋아요.<br/>예를 들어 "그 질문은 정말 중요한 포인트네요. 조금 더 생각해봐야 할 것 같아요." 같은 문장을 미리 연습해보는 거죠.<br/>혹시 이번 주 안에 작은 연습 목표를 하나 잡아볼까요?
+                        </div>
+                      </div>
+                      <div className="flex justify-end mt-8">
+                        <Button
+                          variant="outline"
+                          className="border-slate-500 text-slate-300 bg-slate-800 hover:bg-slate-700"
+                          onClick={() => { setShowAIDialogue(false); setShowSummary(true); setAIType('none'); }}
+                        >
+                          대화 종료
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    // 기존 문제해결형/기타 대화 로직
+                    <>
+                      {/* 이전까지의 대화 내용 모두 출력 */}
+                      {QUESTIONS.slice(0, step).map((q, idx) => (
+                        <div key={q.key} className="flex flex-col gap-4 mb-2">
+                          <div className="self-start max-w-[80%] bg-blue-900/80 text-white rounded-xl px-5 py-3 shadow">
+                            <span className="font-semibold">{q.question}</span>
+                          </div>
+                          <div className="self-end max-w-[80%] bg-slate-800/90 text-slate-200 rounded-xl px-5 py-3 shadow">
+                            {diaryData[q.key as keyof DiaryData]}
+                          </div>
+                        </div>
+                      ))}
+                      {/* 현재 질문과 답변 입력란 */}
+                      {step < QUESTIONS.length && (
+                        <div className="flex flex-col gap-2 mb-2 items-end">
+                          <div className="self-start max-w-[80%] bg-blue-900/80 text-white rounded-xl px-5 py-3 shadow">
+                            <span className="font-semibold">{QUESTIONS[step].question}</span>
+                          </div>
+                          <form className="self-end max-w-[80%] w-full flex items-end gap-2 mt-2" onSubmit={e => {
+                            e.preventDefault();
+                            if (diaryData[QUESTIONS[step].key as keyof DiaryData].trim()) setStep(step + 1);
+                          }}>
+                            <Textarea
+                              id={QUESTIONS[step].key}
+                              placeholder={QUESTIONS[step].placeholder}
+                              value={diaryData[QUESTIONS[step].key as keyof DiaryData]}
+                              onChange={e => setDiaryData({ ...diaryData, [QUESTIONS[step].key]: e.target.value })}
+                              className="min-h-[80px] resize-none text-base border-slate-600 focus:border-purple-400 p-4 bg-slate-800/80 text-slate-200 placeholder:text-slate-500 flex-1"
+                            />
+                            <Button
+                              type="submit"
+                              size="icon"
+                              className="h-12 w-12 bg-indigo-700 text-white hover:bg-indigo-800 ml-2"
+                              disabled={!diaryData[QUESTIONS[step].key as keyof DiaryData].trim()}
+                            >
+                              <Send className="w-5 h-5" />
+                            </Button>
+                          </form>
+                        </div>
+                      )}
+                      {/* 대화 종료 버튼: 항상 하단에 표시 */}
+                      <div className="flex justify-end mt-8">
+                        <Button
+                          variant="outline"
+                          className="border-slate-500 text-slate-300 bg-slate-800 hover:bg-slate-700"
+                          onClick={() => { setShowAIDialogue(false); setShowSummary(true); setAIType('none'); }}
+                        >
+                          대화 종료
+                        </Button>
+                      </div>
+                    </>
                   )}
-                  {/* 대화 종료 버튼: 항상 하단에 표시 */}
-                  <div className="flex justify-end mt-8">
-                    <Button
-                      variant="outline"
-                      className="border-slate-500 text-slate-300 bg-slate-800 hover:bg-slate-700"
-                      onClick={() => { setShowAIDialogue(false); setShowSummary(true); }}
-                    >
-                      대화 종료
-                    </Button>
-                  </div>
                 </div>
               )}
             </CardContent>

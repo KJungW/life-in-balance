@@ -146,7 +146,7 @@ const Index = () => {
                   </div>
                   <CardTitle className="text-slate-200">다른 사람의 일기</CardTitle>
                   <CardDescription className="text-slate-400">
-                    다른 사람들의 실패 경험을 읽으며 위로받고 공감하세요
+                    비슷한 실패를 경험한 다른 사람의 일기를 읽어보며 위로받고 공강해보세요
                   </CardDescription>
                 </CardHeader>
                 <CardContent>

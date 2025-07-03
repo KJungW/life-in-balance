@@ -200,7 +200,7 @@ const ViewOthersDiary = ({ onBack }: ViewOthersDiaryProps) => {
 
       <div className="text-center mb-6">
         <h1 className="text-2xl font-bold text-gray-200 mb-2">다른 사람의 일기</h1>
-        <p className="text-gray-400">다른 사람들의 경험을 통해 위로받고 공감해보세요</p>
+        <p className="text-gray-400">다른 사람들의 비슷한 실패 경험을 통해 위로받고 공감해보세요</p>
       </div>
 
       <div className="space-y-4">

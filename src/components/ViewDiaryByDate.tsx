@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Calendar, Heart, Lightbulb, Target } from "lucide-react";
 import { useState } from "react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface DiaryData {
   id: number;
@@ -12,6 +13,7 @@ interface DiaryData {
   failureReason: string;
   feelings: string;
   futurePlan: string;
+  emotion?: string;
 }
 
 interface ViewDiaryByDateProps {
@@ -25,7 +27,8 @@ const ViewDiaryByDate = ({ diary, onBack }: ViewDiaryByDateProps) => {
     failureContent: "회사 발표 중 질의응답 시간에 예상치 못한 질문을 받고 당황해 아무런 대답도 하지 못했다",
     failureReason: "발표 자체는 충분히 준비했지만, 돌발 상황에 대한 시뮬레이션과 공식적인 자리에서의 발표 경험이 부족했다",
     feelings: "실패가 꼭 준비 부족 때문만은 아니라는 걸 처음 느꼈다. 완벽하려는 마음이 오히려 스스로를 더 긴장하게 만들었고, 그동안의 노력까지 부정하게 만들었다. 그 순간을 지나고 나니, 나 자신에게 너무 가혹했단 생각이 들었다.",
-    futurePlan: "앞으로는 돌발 질문 대응력을 기르기 위해 발표 연습 시 가상의 질문을 받아보며 연습할 계획이다. 또한, 예상치 못한 상황에서도 당황하지 않도록 말문을 여는 문장을 미리 준비해두고, 긴장을 조절하는 루틴도 만들어보려 한다."
+    futurePlan: "앞으로는 돌발 질문 대응력을 기르기 위해 발표 연습 시 가상의 질문을 받아보며 연습할 계획이다. 또한, 예상치 못한 상황에서도 당황하지 않도록 말문을 여는 문장을 미리 준비해두고, 긴장을 조절하는 루틴도 만들어보려 한다.",
+    emotion: '😭',
   };
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({ ...HARDCODED_DIARY });
@@ -113,6 +116,28 @@ const ViewDiaryByDate = ({ diary, onBack }: ViewDiaryByDateProps) => {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 text-slate-300">
+            <div>
+              <h3 className="font-semibold text-slate-200 mb-2">오늘의 감정</h3>
+              {isEditing ? (
+                <Select value={editData.emotion || '😭'} onValueChange={val => setEditData({ ...editData, emotion: val })}>
+                  <SelectTrigger className="w-24 text-3xl bg-slate-700/60 text-slate-100 border-none focus:ring-2 focus:ring-yellow-400">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="😅">😅</SelectItem>
+                    <SelectItem value="😊">😊</SelectItem>
+                    <SelectItem value="😭">😭</SelectItem>
+                    <SelectItem value="😡">😡</SelectItem>
+                    <SelectItem value="😍">😍</SelectItem>
+                    <SelectItem value="😐">😐</SelectItem>
+                    <SelectItem value="😔">😔</SelectItem>
+                    <SelectItem value="😎">😎</SelectItem>
+                  </SelectContent>
+                </Select>
+              ) : (
+                <div className="text-3xl">{displayData.emotion || '😭'}</div>
+              )}
+            </div>
             <div>
               <h3 className="font-semibold text-slate-200 mb-2">실패 내용</h3>
               {isEditing ? (

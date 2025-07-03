@@ -75,7 +75,7 @@ const Index = () => {
                 <BookOpen className="w-8 h-8 text-slate-200" />
               </div>
               <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
-                실패 일기장
+                아이고 또 망했네 일기장
               </h1>
               <p className="text-lg text-slate-300 max-w-2xl mx-auto">
                 실패는 성공의 어머니입니다. 당신의 실패 경험을 기록하고, 
@@ -91,10 +91,10 @@ const Index = () => {
                     <div className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full">
                       <CalendarDays className="w-5 h-5 text-indigo-200" />
                     </div>
-                    <CardTitle className="text-slate-200">나의 실패 일기</CardTitle>
+                    <CardTitle className="text-slate-200">나의 일기</CardTitle>
                   </div>
                   <CardDescription className="text-slate-400">
-                    날짜를 선택하여 작성한 실패 일기를 확인하세요
+                    날짜를 선택하여 작성한 일기를 확인하세요
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="flex justify-center">
@@ -124,7 +124,7 @@ const Index = () => {
                   <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-rose-600 to-pink-600 rounded-full mb-3 mx-auto group-hover:scale-110 transition-transform">
                     <Heart className="w-6 h-6 text-rose-200" />
                   </div>
-                  <CardTitle className="text-slate-200">오늘의 실패 일기 작성</CardTitle>
+                  <CardTitle className="text-slate-200">오늘의 일기 작성</CardTitle>
                   <CardDescription className="text-slate-400">
                     오늘 겪은 실패를 기록하고 AI의 따뜻한 위로와 조언을 받아보세요
                   </CardDescription>
@@ -144,7 +144,7 @@ const Index = () => {
                   <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-indigo-600 to-blue-600 rounded-full mb-3 mx-auto group-hover:scale-110 transition-transform">
                     <Users className="w-6 h-6 text-indigo-200" />
                   </div>
-                  <CardTitle className="text-slate-200">다른 사람의 실패 일기</CardTitle>
+                  <CardTitle className="text-slate-200">다른 사람의 일기</CardTitle>
                   <CardDescription className="text-slate-400">
                     다른 사람들의 실패 경험을 읽으며 위로받고 공감하세요
                   </CardDescription>

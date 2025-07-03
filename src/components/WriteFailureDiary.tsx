@@ -81,7 +81,7 @@ const WriteFailureDiary = ({ onBack }: WriteFailureDiaryProps) => {
               <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-full mb-4 mx-auto">
                 <Sparkles className="w-8 h-8 text-purple-200" />
               </div>
-              <CardTitle className="text-3xl text-slate-200 mb-2">오늘의 실패 일기</CardTitle>
+              <CardTitle className="text-3xl text-slate-200 mb-2">오늘의 일기</CardTitle>
               <p className="text-slate-400 text-lg">솔직한 마음으로 오늘의 경험을 기록해보세요</p>
               <div className="flex items-center justify-center gap-2 mt-4 text-sm text-slate-300">
                 <Calendar className="w-4 h-4" />
@@ -232,7 +232,7 @@ const WriteFailureDiary = ({ onBack }: WriteFailureDiaryProps) => {
       ) : (
         <div className="min-h-[80vh] flex items-center justify-center">
           <div className="bg-slate-800/90 rounded-2xl shadow-2xl p-10 space-y-6 border border-slate-600 max-w-lg w-full mx-4">
-            <h2 className="text-3xl font-bold text-purple-200 mb-6 text-center">오늘의 실패 일기</h2>
+            <h2 className="text-3xl font-bold text-purple-200 mb-6 text-center">오늘의 일기</h2>
             <div className="space-y-4">
               <div>
                 <span className="font-semibold text-slate-300">실패를 한마디로 표현한다면?</span>

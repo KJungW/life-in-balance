@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Calendar, Heart, Lightbulb, Target } from "lucide-react";
+import { useState } from "react";
 
 interface DiaryData {
   id: number;
@@ -19,6 +20,17 @@ interface ViewDiaryByDateProps {
 }
 
 const ViewDiaryByDate = ({ diary, onBack }: ViewDiaryByDateProps) => {
+  const HARDCODED_DIARY = {
+    ...diary,
+    failureContent: "회사 발표 중 질의응답 시간에 예상치 못한 질문을 받고 당황해 아무런 대답도 하지 못했다",
+    failureReason: "발표 자체는 충분히 준비했지만, 돌발 상황에 대한 시뮬레이션과 공식적인 자리에서의 발표 경험이 부족했다",
+    feelings: "실패가 꼭 준비 부족 때문만은 아니라는 걸 처음 느꼈다. 완벽하려는 마음이 오히려 스스로를 더 긴장하게 만들었고, 그동안의 노력까지 부정하게 만들었다. 그 순간을 지나고 나니, 나 자신에게 너무 가혹했단 생각이 들었다.",
+    futurePlan: "앞으로는 돌발 질문 대응력을 기르기 위해 발표 연습 시 가상의 질문을 받아보며 연습할 계획이다. 또한, 예상치 못한 상황에서도 당황하지 않도록 말문을 여는 문장을 미리 준비해두고, 긴장을 조절하는 루틴도 만들어보려 한다."
+  };
+  const [isEditing, setIsEditing] = useState(false);
+  const [editData, setEditData] = useState({ ...HARDCODED_DIARY });
+  const [displayData, setDisplayData] = useState({ ...HARDCODED_DIARY });
+
   // AI 피드백 생성 함수들
   const getComfortMessage = () => {
     const level = parseInt(diary.failureLevel);
@@ -67,6 +79,15 @@ const ViewDiaryByDate = ({ diary, onBack }: ViewDiaryByDateProps) => {
           <ArrowLeft className="w-4 h-4 mr-2" />
           돌아가기
         </Button>
+        {!isEditing && (
+          <Button
+            variant="outline"
+            className="ml-auto border-slate-500 text-slate-300 bg-slate-800 hover:bg-slate-700"
+            onClick={() => setIsEditing(true)}
+          >
+            수정
+          </Button>
+        )}
       </div>
 
       <div className="space-y-6">
@@ -76,33 +97,88 @@ const ViewDiaryByDate = ({ diary, onBack }: ViewDiaryByDateProps) => {
             <div className="flex items-center justify-between">
               <span className="text-sm text-slate-400 flex items-center gap-1">
                 <Calendar className="w-4 h-4" />
-                {diary.date.toLocaleDateString('ko-KR')}
+                {displayData.date.toLocaleDateString('ko-KR')}
               </span>
             </div>
             <CardTitle className="text-xl text-slate-200 mt-3">
-              {diary.failureLevel}
+              {isEditing ? (
+                <input
+                  className="w-full bg-slate-800 text-slate-200 rounded px-2 py-1 border border-slate-600 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                  value={editData.failureLevel}
+                  onChange={e => setEditData({ ...editData, failureLevel: e.target.value })}
+                />
+              ) : (
+                displayData.failureLevel
+              )}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 text-slate-300">
             <div>
               <h3 className="font-semibold text-slate-200 mb-2">실패 내용</h3>
-              <p className="leading-relaxed">{diary.failureContent}</p>
+              {isEditing ? (
+                <textarea
+                  className="w-full bg-slate-800 text-slate-200 rounded px-2 py-1 border border-slate-600 focus:outline-none focus:ring-2 focus:ring-purple-400 min-h-[60px] resize-none overflow-hidden"
+                  value={editData.failureContent}
+                  onChange={e => setEditData({ ...editData, failureContent: e.target.value })}
+                />
+              ) : (
+                <p className="leading-relaxed">{displayData.failureContent}</p>
+              )}
             </div>
-            
             <div>
               <h3 className="font-semibold text-slate-200 mb-2">실패 이유</h3>
-              <p className="leading-relaxed">{diary.failureReason}</p>
+              {isEditing ? (
+                <textarea
+                  className="w-full bg-slate-800 text-slate-200 rounded px-2 py-1 border border-slate-600 focus:outline-none focus:ring-2 focus:ring-purple-400 min-h-[40px] resize-none overflow-hidden"
+                  value={editData.failureReason}
+                  onChange={e => setEditData({ ...editData, failureReason: e.target.value })}
+                />
+              ) : (
+                <p className="leading-relaxed">{displayData.failureReason}</p>
+              )}
             </div>
-            
             <div>
               <h3 className="font-semibold text-slate-200 mb-2">느낀 점</h3>
-              <p className="leading-relaxed">{diary.feelings}</p>
+              {isEditing ? (
+                <textarea
+                  className="w-full bg-slate-800 text-slate-200 rounded px-2 py-1 border border-slate-600 focus:outline-none focus:ring-2 focus:ring-purple-400 min-h-[40px] resize-none overflow-hidden"
+                  value={editData.feelings}
+                  onChange={e => setEditData({ ...editData, feelings: e.target.value })}
+                />
+              ) : (
+                <p className="leading-relaxed">{displayData.feelings}</p>
+              )}
             </div>
-            
             <div>
               <h3 className="font-semibold text-slate-200 mb-2">앞으로의 계획</h3>
-              <p className="leading-relaxed">{diary.futurePlan}</p>
+              {isEditing ? (
+                <textarea
+                  className="w-full bg-slate-800 text-slate-200 rounded px-2 py-1 border border-slate-600 focus:outline-none focus:ring-2 focus:ring-purple-400 min-h-[40px] resize-none overflow-hidden"
+                  value={editData.futurePlan}
+                  onChange={e => setEditData({ ...editData, futurePlan: e.target.value })}
+                />
+              ) : (
+                <p className="leading-relaxed">{displayData.futurePlan}</p>
+              )}
             </div>
+            {isEditing && (
+              <div className="flex gap-3 justify-end pt-2">
+                <Button
+                  variant="outline"
+                  className="border-slate-500 text-slate-300 bg-slate-800 hover:bg-slate-700"
+                  onClick={() => { setIsEditing(false); setEditData(displayData); }}
+                >
+                  취소
+                </Button>
+                <Button
+                  variant="default"
+                  className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white"
+                  onClick={() => { setDisplayData({ ...editData }); setIsEditing(false); }}
+                >
+                  저장
+                </Button>
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>

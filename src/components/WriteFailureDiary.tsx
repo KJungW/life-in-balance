@@ -38,6 +38,21 @@ const QUESTIONS = [
   }
 ];
 
+// 하드코딩된 요약 값
+const HARDCODED_SUMMARY = {
+  failureLevel: "준비는 충분했지만, 순간의 긴장에는 익숙하지 않았다",
+  failureContent: "회사 발표 중 질의응답 시간에 예상치 못한 질문을 받고 당황해 아무런 대답도 하지 못했다",
+  failureReason: "발표 자체는 충분히 준비했지만, 돌발 상황에 대한 시뮬레이션과 공식적인 자리에서의 발표 경험이 부족했다",
+  feelings: "실패가 꼭 준비 부족 때문만은 아니라는 걸 처음 느꼈다. 완벽하려는 마음이 오히려 스스로를 더 긴장하게 만들었고, 그동안의 노력까지 부정하게 만들었다. 그 순간을 지나고 나니, 나 자신에게 너무 가혹했단 생각이 들었다.",
+  futurePlan: "앞으로는 돌발 질문 대응력을 기르기 위해 발표 연습 시 가상의 질문을 받아보며 연습할 계획이다. 또한, 예상치 못한 상황에서도 당황하지 않도록 말문을 여는 문장을 미리 준비해두고, 긴장을 조절하는 루틴도 만들어보려 한다."
+};
+
+// Helper for auto-resize
+function autoResizeTextarea(e: React.ChangeEvent<HTMLTextAreaElement>) {
+  e.target.style.height = 'auto';
+  e.target.style.height = e.target.scrollHeight + 'px';
+}
+
 const WriteFailureDiary = ({ onBack }: WriteFailureDiaryProps) => {
   const [diaryData, setDiaryData] = useState<DiaryData>({
     failureLevel: '',
@@ -61,6 +76,11 @@ const WriteFailureDiary = ({ onBack }: WriteFailureDiaryProps) => {
       plan: `앞으로 비슷한 상황이 온다면, 이번 경험을 바탕으로 더 나은 선택을 할 수 있을 거예요. 작은 변화부터 시도해보는 건 어떨까요?`
     };
   };
+
+  // showSummary가 true가 되는 순간 diaryData를 하드코딩 값으로 덮어쓰기
+  if (showSummary && (diaryData.failureLevel !== HARDCODED_SUMMARY.failureLevel)) {
+    setTimeout(() => setDiaryData(HARDCODED_SUMMARY), 0);
+  }
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -126,7 +146,8 @@ const WriteFailureDiary = ({ onBack }: WriteFailureDiaryProps) => {
                     id="failureContent"
                     placeholder="어떤 실패를 경험하셨나요? 구체적으로 적어주세요."
                     value={diaryData.failureContent}
-                    onChange={e => setDiaryData({ ...diaryData, failureContent: e.target.value })}
+                    onChange={e => { setDiaryData({ ...diaryData, failureContent: e.target.value }); autoResizeTextarea(e as any); }}
+                    onInput={autoResizeTextarea}
                     className="min-h-[120px] resize-none text-base border-slate-600 focus:border-purple-400 p-4 bg-slate-800/80 text-slate-200 placeholder:text-slate-500"
                   />
                   {/* 이미지 업로드 */}
@@ -354,11 +375,21 @@ const WriteFailureDiary = ({ onBack }: WriteFailureDiaryProps) => {
             <div className="space-y-4">
               <div>
                 <span className="font-semibold text-slate-300">실패를 한마디로 표현한다면?</span>
-                <div className="mt-1 text-lg text-slate-100 bg-slate-700/60 rounded px-4 py-2">{diaryData.failureLevel}</div>
+                <Input
+                  className="mt-1 text-lg text-slate-100 bg-slate-700/60 rounded px-4 py-2 border-none focus:ring-2 focus:ring-purple-400"
+                  value={diaryData.failureLevel}
+                  onChange={e => setDiaryData({ ...diaryData, failureLevel: e.target.value })}
+                  maxLength={20}
+                />
               </div>
               <div>
                 <span className="font-semibold text-slate-300">실패 내용</span>
-                <div className="mt-1 text-slate-100 bg-slate-700/60 rounded px-4 py-2">{diaryData.failureContent}</div>
+                <Textarea
+                  className="mt-1 text-slate-100 bg-slate-700/60 rounded px-4 py-2 border-none focus:ring-2 focus:ring-purple-400 min-h-[60px] resize-none overflow-hidden"
+                  value={diaryData.failureContent}
+                  onChange={e => { setDiaryData({ ...diaryData, failureContent: e.target.value }); autoResizeTextarea(e as any); }}
+                  onInput={autoResizeTextarea}
+                />
               </div>
               {/* 업로드된 이미지가 있으면 요약에 표시 */}
               {uploadedImage && (
@@ -371,34 +402,53 @@ const WriteFailureDiary = ({ onBack }: WriteFailureDiaryProps) => {
               )}
               <div>
                 <span className="font-semibold text-indigo-300">실패 이유</span>
-                <div className="mt-1 text-indigo-100 bg-indigo-900/40 rounded px-4 py-2">
-                  실패한 이유는 사전에 준비가 약간 부족했기 때문입니다!
-                </div>
+                <Textarea
+                  className="w-full text-indigo-100 bg-indigo-900/40 rounded border-none focus:ring-2 focus:ring-indigo-400 resize-none overflow-hidden"
+                  value={diaryData.failureReason}
+                  onChange={e => { setDiaryData({ ...diaryData, failureReason: e.target.value }); autoResizeTextarea(e as any); }}
+                  onInput={autoResizeTextarea}
+                  style={{height: 'auto'}}
+                />
               </div>
               <div>
                 <span className="font-semibold text-indigo-300">느낀 점</span>
-                <div className="mt-1 text-indigo-100 bg-indigo-900/40 rounded px-4 py-2">
-                  이번 경험을 통해 사전준비의 중요성을 배울 수 있었습니다!
-                </div>
+                <Textarea
+                  className="w-full text-indigo-100 bg-indigo-900/40 rounded border-none focus:ring-2 focus:ring-indigo-400 resize-none overflow-hidden"
+                  value={diaryData.feelings}
+                  onChange={e => { setDiaryData({ ...diaryData, feelings: e.target.value }); autoResizeTextarea(e as any); }}
+                  onInput={autoResizeTextarea}
+                  style={{height: 'auto'}}
+                />
               </div>
               <div>
                 <span className="font-semibold text-indigo-300">앞으로의 계획</span>
-                <div className="mt-1 text-indigo-100 bg-indigo-900/40 rounded px-4 py-2">
-                  사전 준비를 하고 더블체크를 통해 빠드린것이 없는지 한번더 확인해볼 예정입니다
-                </div>
+                <Textarea
+                  className="w-full text-indigo-100 bg-indigo-900/40 rounded border-none focus:ring-2 focus:ring-indigo-400 resize-none overflow-hidden"
+                  value={diaryData.futurePlan}
+                  onChange={e => { setDiaryData({ ...diaryData, futurePlan: e.target.value }); autoResizeTextarea(e as any); }}
+                  onInput={autoResizeTextarea}
+                  style={{height: 'auto'}}
+                />
               </div>
             </div>
             <div className="flex flex-col gap-6 mt-8">
               <div className="text-center text-lg text-purple-200 font-semibold">
                 실패는 성장의 밑거름이에요! 오늘의 경험이 내일의 더 나은 당신을 만듭니다. 힘내세요!
               </div>
-              <div className="flex justify-end">
+              <div className="flex justify-between gap-4">
                 <Button
                   variant="outline"
                   className="border-slate-500 text-slate-300 bg-slate-800 hover:bg-slate-700"
+                  onClick={() => setShowSummary(false)}
+                >
+                  대화로 되돌아가기
+                </Button>
+                <Button
+                  variant="default"
+                  className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white"
                   onClick={onBack}
                 >
-                  처음으로
+                  저장
                 </Button>
               </div>
             </div>

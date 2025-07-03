@@ -18,6 +18,7 @@ interface OtherDiary {
   reason: string;
   feelings: string;
   plan: string;
+  emotion: string;
 }
 
 const ViewOthersDiary = ({ onBack }: ViewOthersDiaryProps) => {
@@ -29,6 +30,7 @@ const ViewOthersDiary = ({ onBack }: ViewOthersDiaryProps) => {
       date: "2024.01.15",
       failureLevel: 7,
       title: "신입 개발자의 첫 배포 실패",
+      emotion: '😭',
       content: "오늘 처음으로 실제 서비스에 코드를 배포했는데, 버그가 있어서 30분 동안 서비스가 다운되었습니다. 팀장님과 동료들에게 정말 죄송했고, 사용자들에게도 불편을 끼쳤어요.",
       reason: "코드 리뷰를 받았지만, 엣지 케이스를 고려하지 못했고 테스트도 충분히 하지 않았습니다. 급하게 배포하려는 마음에 꼼꼼히 검토하지 못한 것 같아요.",
       feelings: "정말 창피하고 죄송했습니다. 하지만 팀원들이 따뜻하게 격려해주셔서 다시 일어날 수 있었어요. 실수는 누구나 할 수 있다는 것도 깨달았습니다.",
@@ -40,6 +42,7 @@ const ViewOthersDiary = ({ onBack }: ViewOthersDiaryProps) => {
       date: "2024.01.20",
       failureLevel: 9,
       title: "면접에서 멘탈이 무너진 날",
+      emotion: '😔',
       content: "정말 가고 싶었던 회사의 최종 면접에서 완전히 패닉이 왔습니다. 준비했던 것들이 머릿속에서 하나도 생각나지 않았고, 면접관 앞에서 말을 제대로 하지 못했어요.",
       reason: "너무 긴장한 것도 있지만, 면접 연습이 부족했던 것 같아요. 혼자서만 준비하다 보니 실제 상황에 대한 대비가 부족했습니다.",
       feelings: "정말 절망적이었어요. 몇 달 동안 준비한 것이 한순간에 무너지는 느낌이었습니다. 하지만 지금 생각해보니 이것도 경험이고, 다음에는 더 잘할 수 있을 것 같아요.",
@@ -51,6 +54,7 @@ const ViewOthersDiary = ({ onBack }: ViewOthersDiaryProps) => {
       date: "2024.01.22",
       failureLevel: 6,
       title: "중요한 프레젠테이션에서의 실수",
+      emotion: '😅',
       content: "분기 실적 발표에서 데이터를 잘못 준비해서 임원진 앞에서 창피를 당했습니다. 질문에 제대로 답변하지 못했고, 준비 부족이 드러났어요.",
       reason: "여러 프로젝트를 동시에 진행하다 보니 각각에 집중하지 못했습니다. 특히 데이터 검증 과정을 소홀히 했던 것 같아요.",
       feelings: "프로답지 못했다는 생각에 자괴감이 들었습니다. 하지만 상사가 나중에 격려해주셔서 다시 힘을 낼 수 있었어요.",
@@ -110,8 +114,9 @@ const ViewOthersDiary = ({ onBack }: ViewOthersDiaryProps) => {
               </div>
               <span className="text-sm text-gray-400">by {selectedDiary.author}</span>
             </div>
-            <CardTitle className="text-xl text-gray-200 mt-3">
-              {selectedDiary.title}
+            <CardTitle className="text-xl text-gray-200 mt-3 flex items-center gap-2">
+              <span className="text-2xl">{selectedDiary.emotion}</span>
+              <span>{selectedDiary.title}</span>
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-6 space-y-6 text-gray-300">
@@ -221,8 +226,9 @@ const ViewOthersDiary = ({ onBack }: ViewOthersDiaryProps) => {
                   </div>
                   <span className="text-sm text-gray-400">by {diary.author}</span>
                 </div>
-                <CardTitle className="text-lg text-gray-200 hover:text-gray-100">
-                  {diary.title}
+                <CardTitle className="text-lg font-semibold text-gray-200 group-hover:text-blue-300 flex items-center gap-2">
+                  <span className="text-2xl">{diary.emotion}</span>
+                  <span>{diary.title}</span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
